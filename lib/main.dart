@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:whazlansaja/screen/beranda_screen.dart';
+import 'dart:convert';
+import 'package:flutter/services.dart';
+import 'models/dosen.dart';
+
 
 void main() {
   runApp(const MainApp());
@@ -24,4 +28,13 @@ class MainApp extends StatelessWidget {
       home: const BerandaScreen(),
     );
   }
+  
 }
+Future<List<Dosen>> loadDosen() async {
+  final data = await rootBundle.loadString('assets/json_data_chat_dosen/dosen_chat.json');
+  final List<dynamic> jsonData = json.decode(data);
+  return jsonData.map((e) => Dosen.fromJson(e)).toList();
+}
+
+
+
